@@ -3,12 +3,14 @@ export default class Stepper extends React.Component {
   constructor() {
     super();
     this.state = {
-      fName: "",
-      lName: "",
+      user: "",
+      project: "",
+      objective: "",
       genData: [
         {
-          firstName: "foo",
-          lastName: "boo"
+          user: "Obaid",
+          project: "Test",
+          objective: "New"
         }
       ]
     };
@@ -18,19 +20,23 @@ export default class Stepper extends React.Component {
     let genData = this.state.genData;
 
     genData.push({
-      firstName: this.state.fName,
-      lastName: this.state.lName
+      user: this.state.user,
+      object: this.state.object,
+      project: this.state.project
     });
     this.setState({
       genData
     });
   };
 
-  handleChange_firstName = e => {
-    this.setState({ fName: e.target.value });
+  handleChange_user = e => {
+    this.setState({ user: e.target.value });
   };
-  handleChange_lastName = e => {
-    this.setState({ lName: e.target.value });
+  handleChange_project = e => {
+    this.setState({ project: e.target.value });
+  };
+  handleChange_object = e => {
+    this.setState({ object: e.target.value });
   };
 
   render() {
@@ -38,26 +44,33 @@ export default class Stepper extends React.Component {
       <div>
         <input
           type="text"
-          onChange={e => this.handleChange_firstName(e)}
-          placeholder="First Name"
+          onChange={e => this.handleChange_user(e)}
+          placeholder="User..."
         />
         <input
           type="text"
-          onChange={e => this.handleChange_lastName(e)}
-          placeholder="Last Name"
+          onChange={e => this.handleChange_project(e)}
+          placeholder="project..."
         />
-        <button onClick={this._handleSubmit}> hi </button>
+        <input
+          type="text"
+          onChange={e => this.handleChange_object(e)}
+          placeholder="objective...."
+        />
+        <button onClick={this._handleSubmit}> Submitt </button>
 
         <table>
           <tbody>
             <tr>
-              <td>First Name</td>
-              <td>Last Name</td>
+              <td>User</td>
+              <td>project</td>
+              <td>Object</td>
             </tr>
             {this.state.genData.map((row, i) => (
               <tr key={i}>
-                <td>{row.firstName}</td>
-                <td>{row.lastName}</td>
+                <td>{row.user}</td>
+                <td>{row.project}</td>
+                <td>{row.object}</td>
               </tr>
             ))}
           </tbody>

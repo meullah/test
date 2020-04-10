@@ -1,10 +1,11 @@
 import React from "react";
+import Drawer from "./components/drawer";
 
-let d = new Date();
+// let d = new Date();
 function App() {
   return (
     <div>
-      <h1>{d.getFullYear() - 1}</h1>
+      <Drawer />
     </div>
   );
 }
