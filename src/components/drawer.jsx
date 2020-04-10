@@ -11,7 +11,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -23,7 +22,18 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import Select from "react-select";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
 import "./drawer.css";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const drawerWidth = 240;
 let date = new Date();
 const options = [
@@ -100,13 +110,21 @@ export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const [open] = React.useState(false);
-
+  const [_open, _setOpen] = React.useState(false);
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [genData, setGendata] = React.useState({
     firstName: "foo",
     lastName: "boo"
   });
+
+  const handleClickOpen = () => {
+    _setOpen(true);
+  };
+
+  const handleClose = () => {
+    _setOpen(false);
+  };
 
   const handleChange_firstName = e => {
     setFname(e.target.value);
@@ -156,6 +174,7 @@ export default function MiniDrawer() {
                       color: "white",
                       verticalAlign: "center"
                     }}
+                    onClick={handleClickOpen}
                   >
                     + Add New
                   </Button>
@@ -220,34 +239,31 @@ export default function MiniDrawer() {
         <div className={classes.toolbar} />
 
         <Test />
-        {/* <div>
-          <input
-            type="text"
-            onChange={e => handleChange_firstName(e)}
-            placeholder="First Name"
-          />
-          <input
-            type="text"
-            onChange={e => handleChange_lastName(e)}
-            placeholder="Last Name"
-          />
-          <button onClick={_handleSubmit}> hi </button>
-
-          <table>
-            <tbody>
-              <tr>
-                <td>First Name</td>
-                <td>Last Name</td>
-              </tr>
-              {genData.map((row, i) => (
-                <tr key={i}>
-                  <td>{row.firstName}</td>
-                  <td>{row.lastName}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
+        <Dialog
+          open={_open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Use Google's location service?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Somethings are needed to be set
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Strongly ageed xD
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
       </main>
     </div>
   );

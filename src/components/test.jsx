@@ -8,7 +8,7 @@ export default class Stepper extends React.Component {
       objective: "",
       genData: [
         {
-          user: "Obaid",
+          user: "Ehsan",
           project: "Test",
           objective: "New"
         }
